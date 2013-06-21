@@ -40,11 +40,11 @@
 init(Node) ->
     Columns = [{"Pid", 12, [{align, right}]},
 	       {"Registered Name", 20, []},
-	       {"Reductions", 12, []},
-	       {"MQueue", 6, []},
-	       {"HSize", 6, []},
-	       {"SSize", 6, []},
-	       {"HTot", 6, []}],
+	       {"Reductions", 12, [no_silent_truncation]},
+	       {"MQueue", 6, [no_silent_truncation]},
+	       {"HSize", 6, [no_silent_truncation]},
+	       {"SSize", 6, [no_silent_truncation]},
+	       {"HTot", 6, [no_silent_truncation]}],
     {ok, {Columns, 3}, #state{ node = Node }}.
 
 %% Header Callback

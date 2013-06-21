@@ -244,10 +244,13 @@ update_row([RowColValue|Rest], [{_,Width,Options}|RestColumns], LineNumber, Offs
 		   true ->
 			lists:flatten(io_lib:format("~1000p",[RowColValue]))
 		end,
-    Aligned = case proplists:get_value(align, Options) of
-		  right ->
+    Aligned = case {proplists:get_value(align, Options),
+		    proplists:get_value(no_silent_truncation, Options, false)} of
+		  {_, true} when length(StrColVal) > Width ->
+		      lists:duplicate(Width, $*);
+		  {right, _} ->
 		      string:right(StrColVal, Width);
-		  _ ->
+		  {_, _} ->
 		      string:left(StrColVal, Width)
 	      end,
     cecho:mvaddstr(LineNumber, Offset, Aligned),
